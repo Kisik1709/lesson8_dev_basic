@@ -49,6 +49,7 @@ def main():
 
     address = input("Введите Ваш адрес: ")
     user_coordinates = fetch_coordinates(API_KEY, address)
+    logging.info(f"Получены координаты {user_coordinates}")
 
     if not user_coordinates:
         logging.error(
@@ -63,7 +64,8 @@ def main():
         name = coffee_list["Name"]
         longitude, latitude = coffee_list["geoData"]["coordinates"]
 
-        coffee_coordinates = (longitude, latitude)
+        coffee_coordinates = (latitude, longitude)
+        user_coordinates = (user_coordinates[1], user_coordinates[0])
         geodic = distance.distance(user_coordinates, coffee_coordinates).km
 
         coffee_data = {
